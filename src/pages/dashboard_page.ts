@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { LoginPage } from "./login_page";
 
 export class DashboardPage {
     readonly page: Page;
@@ -17,10 +18,12 @@ export class DashboardPage {
   async clickProfile() {
     await expect(this.alertIcon).toBeVisible(); // Počká na zobrazení elementu, pak pokračuje v testech
     await this.profileButton.click();
+    return this;
   }
 
   async clickLogout() {
     await this.logoutButton.click();
+    return new LoginPage(this.page)
   }
 
 
@@ -28,5 +31,6 @@ export class DashboardPage {
   async logout() {
     await this.clickProfile();
     await this.clickLogout();
+    return await this.clickLogout();
   }
 }
