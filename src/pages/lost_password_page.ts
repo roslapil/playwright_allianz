@@ -1,21 +1,22 @@
+import { Locator, Page } from "@playwright/test";
 import { LoginPage } from "./login_page";
 
 export class LostPasswordPage {
-    readonly page: Page;
-    readonly usernameInput: Locator;
-    readonly emailInput: Locator;
-    readonly sendButton: Locator;
-    readonly backButton: Locator;
+  readonly page: Page;
+  readonly usernameInput: Locator;
+  readonly emailInput: Locator;
+  readonly sendButton: Locator;
+  readonly backButton: Locator;
 
-    constructor(page: Page) {
-        this.page=page;
-        this.usernameInput = page.locator("input[placeholder='Username']");
-        this.emailInput = page.locator("input[placeholder='Email']")
-        this.sendButton = page.locator('[type="submit"]')
-        this.backButton = page.locator("#back-btn")
-    }
+  constructor(page: Page) {
+    this.page = page;
+    this.usernameInput = page.locator("input[placeholder='Username']");
+    this.emailInput = page.locator("input[placeholder='Email']");
+    this.sendButton = page.locator('[type="submit"]');
+    this.backButton = page.locator("#back-btn");
+  }
 
-async fillUsername(username: string) {
+  async fillUsername(username: string) {
     await this.usernameInput.fill(username);
     return this;
   }
@@ -27,11 +28,11 @@ async fillUsername(username: string) {
 
   async clickSend() {
     await this.sendButton.click();
-    return new LoginPage(this.page)
+    return new LoginPage(this.page);
   }
 
   async clickBack() {
-    await this.backButton.click()
-    return new LoginPage(this.page)
+    await this.backButton.click();
+    return new LoginPage(this.page);
   }
 }
