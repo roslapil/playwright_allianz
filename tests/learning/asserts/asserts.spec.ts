@@ -53,4 +53,33 @@ test.describe("Asserts - Testing in Playwright", () => {
       usernameValue,
     );
   });
+
+  test("Soft Asserts", async ({ page }) => {
+    const welcomePageHeader = page.locator("#welcome-page-header");
+    await expect
+      .soft(welcomePageHeader, "Welcome Page Header has Text")
+      .toHaveText("Vítej v testovací aplikaci");
+
+    const dashboardPage = new DashboardPage(page);
+    await dashboardPage
+      .clickProfile()
+      .then((dashboard) => dashboard.clickLogout());
+  });
+
+  test("Negative Asserts", async ({ page }) => {
+    const welcomePageHeader = page.locator("#welcome-page-header");
+    await expect(
+      welcomePageHeader,
+      "Welcome Page Header does not have Text",
+    ).not.toContainText("ERROR");
+  });
+
+  test("Page Objects Asserts", async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    const pageHeaderText = "Login";
+
+    await loginPage
+      .open()
+      .then((login) => login.pageHeaderHasText(pageHeaderText));
+  });
 });
