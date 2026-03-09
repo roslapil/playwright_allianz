@@ -1,5 +1,6 @@
 import { expect, Locator, Page, test } from "@playwright/test";
 import { LoginPage } from "./login_page";
+import { ProjectsPage } from "./projects_page";
 
 export class DashboardPage {
   readonly page: Page;
@@ -15,9 +16,9 @@ export class DashboardPage {
     this.profileButton = page.locator("#user_dropdown");
     this.logoutButton = page.locator("#logout");
     this.alertIcon = page.locator("#user_notifications_report");
-    this.projectsButton = page.locator("Projects");
     this.addProjectsButton = page.locator('[test_id="Add Project"]');
     this.appNameAnchor = page.locator(".navbar-brand");
+    this.projectsButton = page.locator("#Projects a");
   }
 
   async clickProfile() {
@@ -45,5 +46,10 @@ export class DashboardPage {
       ).toBeVisible();
       await expect(this.appNameAnchor, "App Name has Text").toHaveText(appName);
     });
+  }
+
+  async clickProjects() {
+    await this.projectsButton.click();
+    return new ProjectsPage(this.page);
   }
 }
