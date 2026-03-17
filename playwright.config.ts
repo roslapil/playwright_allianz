@@ -34,6 +34,7 @@ export default defineConfig({
     navigationTimeout: 30_000,
     screenshot: "only-on-failure", // on - vzdy na konci; - ukládá se do playwright-reportu; PROMAZÁVÁ SE, JE POTŘEBA SI KOPÍROVAT
     video: "off", // žere strašne výkonu
+    ignoreHTTPSErrors: true, //!!! PAK ODMAZAT
   },
   timeout: 4 * 60 * 1000, //lze udělat zápis času v ms i takhle, kvůli přehlednosti
   expect: {
